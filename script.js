@@ -35,8 +35,19 @@ function operate(num1, num2, operation) {
     }
 }
 
-console.log(operate(10, 5, "+")); // Output: 15
-console.log(operate(10, 5, "-")); // Output: 5
-console.log(operate(10, 5, "*")); // Output: 50
-console.log(operate(10, 5, "/")); // Output: 2
-console.log(operate(10, 0, "/")); // Output: null
+const display = document.querySelector("#display");
+const buttons = document.querySelector("#buttons");
+buttons.addEventListener("click", function (event) {
+    const button = event.target;
+
+    if (button.classList.contains("digit")) {
+        // Handle digit button click
+        if (C === "") {
+            A += button.dataset.value;
+            display.value = A;
+        } else {
+            B += button.dataset.value;
+            display.value = B;
+        }
+    }
+});
