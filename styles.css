@@ -1,0 +1,123 @@
+:root {
+    --bg-page: #e4e4e7;      /* fondo de la página */
+    --shell: #3f3f46;        /* cuerpo de la calculadora */
+    --key: #71717a;          /* dígitos */
+    --key-dark: #52525b;     /* Ce / C */
+    --accent: #f97316;       /* naranja: operadores y = */
+    --display-bg: #1d1d20;
+    --display-text: #f4f4f5;
+
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: var(--bg-page);
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+h1 {
+    margin: 0;
+    color: var(--shell);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ---------- Cuerpo de la calculadora ---------- */
+
+.calculator {
+    width: 330px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 15px;
+    background: var(--shell);
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Display ---------- */
+
+#display {
+    width: 100%;
+    padding: 18px 16px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--display-bg);
+    color: var(--display-text);
+    font-family: "Courier New", monospace;
+    font-size: 1.8rem;
+    text-align: right;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+#display:focus {
+    outline: none; /* es readonly, el foco no aporta nada */
+}
+
+/* ---------- Teclado ---------- */
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 62px;
+    gap: 10px;
+}
+
+#buttons button {
+    border: none;
+    border-radius: var(--radius);
+    background: var(--key);
+    color: #fafafa;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35); /* relieve de tecla física */
+    transition: filter 0.1s;
+}
+
+#buttons button:hover {
+    filter: brightness(1.12);
+}
+
+#buttons button:active {
+    transform: translateY(2px);           /* la tecla "baja" al presionar */
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Variantes ---------- */
+
+/* Llevan el ID adelante para igualar/superar la especificidad
+   del selector base #buttons button (un ID gana a las clases solas) */
+
+#buttons .operator,
+#buttons .result {
+    background: var(--accent);
+}
+
+#buttons .result {
+    font-size: 1.7rem;
+    grid-row: span 2;               /* "=" ocupa dos filas */
+}
+
+#buttons .clear,
+#buttons .delete {
+    background: var(--key-dark);
+    color: var(--accent); /* detalle naranja sin competir con los operadores */
+    font-size: 1.05rem;
+}
+
+button[data-value="0"] {
+    grid-column: span 2;            /* "0" ocupa dos columnas */
+}
