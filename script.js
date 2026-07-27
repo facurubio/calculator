@@ -35,6 +35,14 @@ function operate(num1, num2, operation) {
     }
 }
 
+function evaluate(a, b, op){
+    let result = operate(a, b, op);
+    if (result === null){
+        return null;
+    }
+    return Math.round(result * 100) / 100;
+};
+
 const display = document.querySelector("#display");
 const buttons = document.querySelector("#buttons");
 buttons.addEventListener("click", function (event) {
@@ -58,22 +66,43 @@ buttons.addEventListener("click", function (event) {
 
     if (button.classList.contains("operator")) {
         if( B !== "" && C !== "") {
-            A = operate(A, B, C).toString();
-            B = "";
-
-            display.value = A;
+            let result = evaluate(A,B,C);
+            if(result === null){
+                display.value = "It is not possible to divide numbers by 0";
+                A = "";
+                B = "";
+                C = "";
+                flag = false; 
+                return
+            }else{
+                A = result.toString();
+                B = "";
+                display.value = A;
+            }
         }
-        flag = false;
-        C = button.dataset.value;
+        if (A !== "") {
+            flag = false;
+            C = button.dataset.value;
+        }
     }
 
     if (button.classList.contains("result")) {
         if (A !== "" && B !== "" && C !== "") {
-            A = operate(A, B, C).toString();
-            B = "";
-            C = "";
-            flag = true;
-            display.value = A;
+            let result = evaluate(A,B,C);
+            if(result === null){
+                display.value = "It is not possible to divide numbers by 0";
+                A = "";
+                B = "";
+                C = "";
+                flag = false;
+            } else{
+                A = result.toString();
+                B = "";
+                C = "";
+                flag = true;
+                display.value = A;
+            }
+
         }
     }
 
