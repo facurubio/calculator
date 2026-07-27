@@ -39,25 +39,31 @@ const display = document.querySelector("#display");
 const buttons = document.querySelector("#buttons");
 buttons.addEventListener("click", function (event) {
     const button = event.target;
-
+    
     if (button.classList.contains("digit") ) {
         // Handle digit button click
-        if (C === "") {
+        if (flag) {
+            A = "";
+            flag = false;
+        }
+        if (C === "" ) {
             A += button.dataset.value;
             display.value = A;
         } else {
             B += button.dataset.value;
             display.value = B;
         }
+
     }
 
     if (button.classList.contains("operator")) {
-         if( B !== "" && C !== "") {
+        if( B !== "" && C !== "") {
             A = operate(A, B, C).toString();
             B = "";
 
             display.value = A;
         }
+        flag = false;
         C = button.dataset.value;
     }
 
@@ -66,8 +72,16 @@ buttons.addEventListener("click", function (event) {
             A = operate(A, B, C).toString();
             B = "";
             C = "";
+            flag = true;
             display.value = A;
         }
     }
-                    
+
+    if (button.classList.contains("clear")) {
+        A = "";
+        B = "";
+        C = "";
+        flag = false;
+        display.value = "";
+    }      
 });
