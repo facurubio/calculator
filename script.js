@@ -40,7 +40,7 @@ const buttons = document.querySelector("#buttons");
 buttons.addEventListener("click", function (event) {
     const button = event.target;
 
-    if (button.classList.contains("digit")) {
+    if (button.classList.contains("digit") ) {
         // Handle digit button click
         if (C === "") {
             A += button.dataset.value;
@@ -50,4 +50,24 @@ buttons.addEventListener("click", function (event) {
             display.value = B;
         }
     }
+
+    if (button.classList.contains("operator")) {
+         if( B !== "" && C !== "") {
+            A = operate(A, B, C).toString();
+            B = "";
+
+            display.value = A;
+        }
+        C = button.dataset.value;
+    }
+
+    if (button.classList.contains("result")) {
+        if (A !== "" && B !== "" && C !== "") {
+            A = operate(A, B, C).toString();
+            B = "";
+            C = "";
+            display.value = A;
+        }
+    }
+                    
 });
