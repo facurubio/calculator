@@ -45,8 +45,11 @@ function evaluate(a, b, op){
 
 const display = document.querySelector("#display");
 const buttons = document.querySelector("#buttons");
+
+
 buttons.addEventListener("click", function (event) {
     const button = event.target;
+    button.blur();
     
     if (button.classList.contains("digit") ) {
         // Handle digit button click
@@ -70,7 +73,7 @@ buttons.addEventListener("click", function (event) {
         if( B !== "" && C !== "") {
             let result = evaluate(A,B,C);
             if(result === null){
-                display.value = "It is not possible to divide numbers by 0";
+                display.value = "Error";
                 A = "";
                 B = "";
                 C = "";
@@ -92,7 +95,7 @@ buttons.addEventListener("click", function (event) {
         if (A !== "" && B !== "" && C !== "") {
             let result = evaluate(A,B,C);
             if(result === null){
-                display.value = "It is not possible to divide numbers by 0";
+                display.value = "Error";
                 A = "";
                 B = "";
                 C = "";
@@ -137,7 +140,6 @@ document.addEventListener('keydown', (event) =>{
     const value = elements[event.key] ?? event.key;
     const button = document.querySelector(`[data-value="${value}"]`);
     if(button === null) return;
-    if (button === elements.Enter){ };
     button.click();
 });
 
