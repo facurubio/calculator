@@ -55,9 +55,11 @@ buttons.addEventListener("click", function (event) {
             flag = false;
         }
         if (C === "" ) {
+            if (button.dataset.value === "." && A.includes(".")) return;
             A += button.dataset.value;
             display.value = A;
         } else {
+            if(button.dataset.value === "." && B.includes(".")) return;
             B += button.dataset.value;
             display.value = B;
         }
@@ -113,4 +115,29 @@ buttons.addEventListener("click", function (event) {
         flag = false;
         display.value = "";
     }      
+
+    if (button.classList.contains("delete")) {
+    if (C === "") {
+        A = A.slice(0, -1);
+        flag = false;
+        display.value = A;
+    } else {
+        B = B.slice(0, -1);
+        display.value = B;
+    }
+}
 });
+
+
+document.addEventListener('keydown', (event) =>{
+    const elements = {
+        Enter: '=',
+        Backspace: 'delete',
+    };
+    const value = elements[event.key] ?? event.key;
+    const button = document.querySelector(`[data-value="${value}"]`);
+    if(button === null) return;
+    if (button === elements.Enter){ };
+    button.click();
+});
+
